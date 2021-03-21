@@ -1,0 +1,10 @@
+pipeline {
+    agent any
+    stages {
+        stage ('run maven commands') {
+            steps {
+                sh 'cat /etc/passwd'
+            }
+        }
+    }
+}
