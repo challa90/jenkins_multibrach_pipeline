@@ -1,9 +1,18 @@
 pipeline {
     agent any
+    tools {
+        jdk 'java11'
+        maven 'maven3'
+    }
     stages {
-        stage ('run maven commands') {
+        stage ('checkout scm') {
             steps {
-                sh 'cat /etc/passwd'
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/challa90/java-hello-world-with-maven.git']]])
+            }
+        }
+        stage ('package maven code') {
+            steps {
+                sh 'mvn test'
             }
         }
     }
